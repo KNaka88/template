@@ -2,8 +2,16 @@ function Alarm(currentTime) {
   this.currentTime = currentTime;
 }
 
-Alarm.prototype.setAlarm = function(setTime){
-  return "Set Time";
-};
 
 exports.alarmModule = Alarm;
+
+
+Alarm.prototype.checkAlarm = function(alarm_time){
+  var checkAlarm = moment().subtract(alarm_time, 'minutes');
+  console.log(checkAlarm);
+  if(checkAlarm < 0){
+    return "Alarm!";
+  }else {
+    return "Not Alarm";
+  }
+};

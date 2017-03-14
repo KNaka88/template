@@ -1,11 +1,22 @@
 var Alarm = require('./../js/alarm.js').alarmModule;
 
 $(function(){
-  $("#alarm_time_form").click(function(e){
+  $("#alarm_time_form").submit(function(e){
     e.preventDefault();
-    var alarm_time = $("#alarm_time").val();
-    var alarm = new Alarm("10:00"); //get current time from Moment.js
-    var setTime = alarm.setAlarm(alarm_time);//set alarmtime
-    console.log(setTime);
+
+    $("#timer").text("");
+    var alarm_time = parseInt($("#alarm_time").val());
+    console.log(alarm_time);
+
+    var currentTime= new Alarm(moment().format("MMMM Do YYYY, H:mm")); //get current
+    // console.log(currentTime.checkAlarm(alarm_time));
+
+    var timer = moment.duration(alarm_time, "seconds").timer({
+      loop: false
+    }, function() {
+      // console.log(timer.getDuration());
+      $("#timer").text("Time is UP!!");
+    });
+
   });
 });
