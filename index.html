@@ -3,8 +3,26 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <script src="build/js/vendor.min.js"></script>
+    <script type='text/javascript' src='build/js/app.js'></script>
   </head>
   <body>
-    
+    <h3>Current Time</h3>
+    <h3 id="time"></h3>
+    <h4>Set Time</h4>
+    <form id='alarm_time_form'>
+      <select id='alarm_time'>
+        <option value="9:00">9:00</option>
+        <option value="10:00">10:00</option>
+        <option value="11:00">11:00</option>
+        <option value="12:00">12:00</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+      </select>
+      <button type="submit" class="btn">Set Alarm</button>
+    </form>
   </body>
 </html>
