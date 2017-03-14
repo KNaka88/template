@@ -4,5 +4,6 @@ function Alarm(currentTime) {
 
 Alarm.prototype.setAlarm = function(setTime){
   return "Set Time";
-}
+};
+
 exports.alarmModule = Alarm;

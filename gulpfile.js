@@ -1,12 +1,24 @@
 var gulp = require('gulp');
-var concat = require('gulp-concat');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
+var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var utilities = require('gulp-util');
-var buildProduction = utilities.env.production;
 var del = require('del');
+var buildProduction = utilities.env.production;
+var lib = require('bower-files')({
+  "overrides":{
+    "bootstrap" : {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }
+});
 var browserSync = require('browser-sync').create();
+
 
 gulp.task('concatInterface', function() {
   return gulp.src(['./js/*-interface.js'])
@@ -14,8 +26,8 @@ gulp.task('concatInterface', function() {
   .pipe(gulp.dest('./tmp'));
 });
 
-gulp.task('jsBrowserify', function() {
-  return browserify({ entries: ['./js/alarm-interface.js'] })
+gulp.task('jsBrowserify', ['concatInterface'], function() {
+  return browserify({ entries: ['./tmp/allConcat.js'] })
     .bundle()
     .pipe(source('app.js'))
     .pipe(gulp.dest('./build/js'));
@@ -32,17 +44,6 @@ gulp.task("clean", function() {
 });
 
 ///////////USING BOWER Packages in the Gulpfile
-var lib = require('bower-files')({
-  "overrides":{
-    "bootstrap" : {
-      "main": [
-        "less/bootstrap.less",
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
-    }
-  }
-});
 
 gulp.task('bowerJS', function () {
   return gulp.src(lib.ext('js').files)
